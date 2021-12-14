@@ -1,0 +1,70 @@
+<html>
+
+<style>
+
+</style>
+
+<h1 id="date"></h1>
+
+<script>
+
+
+var dateString="";
+var day, month, g, c, h, i, newYear, newMonth, newDay;
+
+
+function GoodFriday(year){
+
+    day = 0;
+    month = 0;
+
+    g = year % 19;
+    c = year / 100;
+    h = (c - parseInt(c / 4) - parseInt((8 * c + 13) / 25) + 19 * g + 15) % 30;
+    i = h - parseInt(h / 28) * (1 - parseInt(h / 28) * parseInt(29 / (h + 1)) * parseInt((21 - g) / 11));
+
+    day   = i - ((year + parseInt(year / 4) + i + 2 - c + parseInt(c / 4)) % 7) + 28;
+    month = 3;
+
+    if (day > 31){
+    
+        month++;
+        day -= 31;
+    
+	}
+	
+	
+	newYear=year;
+	newMonth=month;
+	newDay=day;
+	
+	if(newDay == 0){
+		newDay=29;
+		newMonth-=1;
+	}
+	
+	else if(newDay == 1){
+		newDay=30;
+		newMonth-=1;
+	}
+	
+	
+	
+	return new Date(newYear,newMonth,newDay);
+	
+    
+}
+
+var currentDate = new Date();
+
+var goodFridayThisYearDate=GoodFriday(currentDate.getFullYear());
+
+
+
+dateString=(goodFridayThisYearDate.getDay()+1).toString()+"/"+(goodFridayThisYearDate.getMonth()+1).toString()+"/"+(goodFridayThisYearDate.getFullYear()+1).toString();
+	
+document.getElementById("date").innerHTML="The next Good Friday is: "+dateString;
+
+</script>
+
+</html>
